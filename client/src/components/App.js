@@ -6,20 +6,20 @@ import "../assets/main.css"
 import HobbiesList from "./HobbiesList"
 import NewHobbyForm from "./NewHobbyForm"
 
-const App = props => {
+const App = (props) => {
   const [hobbies, setHobbies] = useState([])
 
   const getHobbies = async () => {
     try {
-      const response = await fetch('/api/v1/hobbies')
+      const response = await fetch("/api/v1/hobbies")
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
-        throw(error)
+        throw error
       }
       const body = await response.json()
       setHobbies(body.hobbies)
-    } catch(err) {
+    } catch (err) {
       console.error(`Error in fetch: ${err.message}`)
     }
   }
@@ -40,21 +40,19 @@ const App = props => {
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
-        throw(error)
+        throw error
       }
       const body = await response.json()
       setHobbies([...hobbies, body.hobby])
-    } catch(err) {
+    } catch (err) {
       console.error(`Error in fetch: ${err.message}`)
     }
   }
 
-  return(
+  return (
     <div>
-      <NewHobbyForm
-        postHobby={postHobby}
-      />
-      <HobbiesList hobbies={hobbies}/>
+      <NewHobbyForm postHobby={postHobby} />
+      <HobbiesList hobbies={hobbies} />
     </div>
   )
 }
